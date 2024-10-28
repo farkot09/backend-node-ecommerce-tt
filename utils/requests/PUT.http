@@ -1,0 +1,6 @@
+PUT http://localhost:5002/api/customers/1
+Content-Type: application/json
+
+{
+    "email": "aaaa@bbb.cc"
+}

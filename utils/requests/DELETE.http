@@ -1,0 +1,3 @@
+DELETE http://localhost:5002/api/customers/3
+Content-Type: application/json
+

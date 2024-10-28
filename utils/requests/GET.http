@@ -1,0 +1,3 @@
+GET http://localhost:5002/api/customers
+Content-Type: application/json
+
