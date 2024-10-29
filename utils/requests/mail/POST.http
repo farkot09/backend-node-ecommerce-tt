@@ -1,8 +1,8 @@
-POST http://localhost:5002/api/products
+POST http://localhost:5002/api/mailMasiveBatch
 Content-Type: application/json
 
 {
-    "name": "Control XBOX ONE",
-    "price": 200000,
-    "image": "http://imagen.com"    
+    "recipients": ["encoexpresbuenaventura@gmail.com", "viagramo2011@gmail.com"],
+    "subject": "Envio de Prueba 3",
+    "text": "envio correo de prueba 3"    
 }

@@ -1,8 +1,8 @@
-POST http://localhost:5002/api/mailMasive
+POST http://localhost:5002/api/products
 Content-Type: application/json
 
 {
-    "recipients": "encoexpresbuenaventura@gmail.com",
-    "subject": "Envio de Prueba 2",
-    "text": "envio correo de prueba 2"    
+    "name": "Control XBOX ONE",
+    "price": 200000,
+    "image": "http://imagen.com"    
 }
