@@ -1,0 +1,6 @@
+PUT http://localhost:5002/api/products/3
+Content-Type: application/json
+
+{
+    "image": "imagen.1"
+}

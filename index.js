@@ -2,6 +2,7 @@ const express = require("express");
 const app = express();
 const bodyParser = require("body-parser");
 const RoutesCustomer = require("./routes/routesCustomer");
+const RoutesProduct = require("./routes/routesProduct");
 
 
 require("dotenv").config();
@@ -13,8 +14,7 @@ app.use(bodyParser.urlencoded({ extended: true }));
 app.use(express.json());
 
 app.use("/api", RoutesCustomer);
-
-
+app.use("/api", RoutesProduct);
 
 const PORT = process.env.PORT || 5000;
 app.listen(PORT, () => {

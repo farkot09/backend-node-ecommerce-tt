@@ -2,6 +2,6 @@ POST http://localhost:5002/api/customers
 Content-Type: application/json
 
 {
-    "name": "Carlos Mario",
-    "email": "cm@gmail.com"
+    "name": "Juan Rios",
+    "email": "jrios@correo.com"
 }
