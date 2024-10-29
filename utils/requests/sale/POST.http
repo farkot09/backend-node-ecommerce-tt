@@ -1,0 +1,11 @@
+POST http://localhost:5002/api/sales
+Content-Type: application/json
+
+{
+    "id_customer": 2,
+    "total_sale": 10000,
+    "list_products": [{
+        "id_product":1,
+        "quantity_sale":2
+    }]    
+}

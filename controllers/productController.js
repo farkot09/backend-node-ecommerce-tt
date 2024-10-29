@@ -6,7 +6,7 @@ require("dotenv").config();
 const ProductController = {
   create: async (req, res) => {
     try {
-      const { name, price, image,  } = req.body;
+      const { name, price, image, quantity, status  } = req.body;
       const productExists = await Product.findOne({
         where: {
             name,
@@ -20,7 +20,9 @@ const ProductController = {
       const productSaved = await Product.create({
         name,
         price,
-        image
+        image,
+        quantity,
+        status,
       });
       return res.status(201).json({
         message: "Product Crated",
@@ -36,16 +38,18 @@ const ProductController = {
   updateProduct: async (req, res) => {
     try {
       const { id } = req.params;
-      const { name, price, image } = req.body;
+      const { name, price, image, quantity, status=true } = req.body;           
       const productExists = await Product.findByPk(id);
       if (!productExists) {
         return res.status(404).json({
-          message: "El cliente no existe",
+          message: "El Producto no existe",
         });
       }
       productExists.name = name || productExists.name;
       productExists.price = price || productExists.price;
       productExists.image = image || productExists.image;
+      productExists.quantity = quantity || productExists.quantity;
+      productExists.status = status;
       await productExists.save();
       return res.status(200).json({
         message: "product Updated",

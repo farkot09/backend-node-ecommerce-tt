@@ -1,6 +1,6 @@
-PUT http://localhost:5002/api/customers/4
+PUT http://localhost:5002/api/customers/2
 Content-Type: application/json
 
 {
-    "email": "nuevocorreo@gmail.com"
+    "email": "encoexpresbuenaventura@gmail.com"
 }

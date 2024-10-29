@@ -14,6 +14,7 @@ const transporter = nodemailer.createTransport({
 const batchSize = 3;
 const batchDelay = 10000;
 
+
 const sendMasiveMail = async (req, res) => {
   const { recipients, subject, text } = req.body;
 

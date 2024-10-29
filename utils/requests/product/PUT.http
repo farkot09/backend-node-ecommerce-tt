@@ -1,6 +1,6 @@
-PUT http://localhost:5002/api/products/3
+PUT http://localhost:5002/api/products/1
 Content-Type: application/json
 
 {
-    "image": "imagen.1"
+    "quantity": 100
 }

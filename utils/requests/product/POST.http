@@ -2,7 +2,9 @@ POST http://localhost:5002/api/products
 Content-Type: application/json
 
 {
-    "name": "Control XBOX ONE",
-    "price": 200000,
-    "image": "http://imagen.com"    
+    "name": "Control PS5",
+    "price": 240000,
+    "image": "http://imagen.com",
+    "quantity":50,
+    "status":true 
 }

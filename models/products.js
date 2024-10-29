@@ -25,6 +25,14 @@ module.exports = (sequelize, DataTypes) => {
             type: DataTypes.STRING(100),
             allowNull: false,
           },
+          quantity: {
+            type: DataTypes.INTEGER,
+            allowNull: false,
+          },
+          status: {
+            type: DataTypes.BOOLEAN,
+            allowNull: false,
+          },
           createdAt: {
             type: DataTypes.DATE,
             allowNull: false,

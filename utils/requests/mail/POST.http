@@ -1,8 +1,8 @@
-POST http://localhost:5002/api/mailMasiveBatch
+POST http://localhost:5002/api/sendMasiveMail
 Content-Type: application/json
 
 {
-    "recipients": ["encoexpresbuenaventura@gmail.com", "viagramo2011@gmail.com"],
+    "recipients": "encoexpresbuenaventura@gmail.com",
     "subject": "Envio de Prueba 3",
     "text": "envio correo de prueba 3"    
 }
