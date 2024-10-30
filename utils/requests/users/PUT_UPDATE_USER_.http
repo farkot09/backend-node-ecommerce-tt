@@ -1,0 +1,8 @@
+PUT http://localhost:5002/api/user/updatePassword/1
+Content-Type: application/json
+
+
+{
+    "oldPassword":"123456", 
+    "newPassword":"654321" 
+}
