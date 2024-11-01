@@ -7,15 +7,10 @@ const RoutesEmail = require("./routes/routesEmail");
 const RoutesSale = require("./routes/routesSale");
 const RoutesUser = require("./routes/routesUser");
 
-const corsOptions = {
-  origin: 'https://main.d1eo61iiuiiear.amplifyapp.com',
-};
-
-
 require("dotenv").config();
 const cors = require("cors");
 
-app.use(cors(corsOptions));
+app.use(cors());
 app.use(bodyParser.json());
 app.use(bodyParser.urlencoded({ extended: true }));
 app.use(express.json());
