@@ -29,6 +29,11 @@ module.exports = (sequelize) => {
         type: DataTypes.STRING,
         allowNull: false,
       },
+      role: {
+        type: DataTypes.STRING,
+        allowNull: false,
+        defaultValue: "client",
+      },
       createdAt:{
         type: DataTypes.DATE,
         allowNull: false

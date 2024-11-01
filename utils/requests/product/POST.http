@@ -2,9 +2,9 @@ POST http://localhost:5002/api/products
 Content-Type: application/json
 
 {
-    "name": "Control PS5",
-    "price": 240000,
-    "image": "http://imagen.com",
-    "quantity":50,
+    "name": "Nintendo Switch Oled Blanco 64gb",
+    "price": 1239900,
+    "image": "https://http2.mlstatic.com/D_NQ_NP_841241-MEC48197690250_112021-O.webp",
+    "quantity":12,
     "status":true 
 }

@@ -57,7 +57,7 @@ const UserController = {
           message: "Invalid password",
         });
       }
-      const token = jwt.sign({ id: user.id }, JWT_SECRET, {
+      const token = jwt.sign({ user }, JWT_SECRET, {
         expiresIn: JWT_EXPIRE_IN,
       });
       return res.status(200).json({
