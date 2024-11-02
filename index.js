@@ -28,8 +28,8 @@ app.use("/api", RoutesUser);
 
 // Cargar los certificados SSL
 const sslOptions = {
-    key: fs.readFileSync('/etc/letsencrypt/live/tu-dominio.com/privkey.pem'),
-    cert: fs.readFileSync('/etc/letsencrypt/live/tu-dominio.com/fullchain.pem')
+    key: fs.readFileSync('/etc/letsencrypt/live/farkot.site-0001/privkey.pem'),
+    cert: fs.readFileSync('/etc/letsencrypt/live/farkot.site-0001/fullchain.pem')
 };
 
 // Crear el servidor HTTPS
