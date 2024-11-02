@@ -59,6 +59,22 @@ const SaleController = {
         });
       }
     },
+    getSaleByUser: async (req, res) => {
+      const {id} = req.params;
+      try {
+        const sales = await Sale.findAll({
+          where: {
+            id_customer: id,
+          },
+        })        
+        return res.status(200).json({ sales });
+      } catch (error) {
+        return res.status(500).json({
+          message: "Error",
+          error,
+        });
+      }
+    },
   };
   
   module.exports = SaleController;
