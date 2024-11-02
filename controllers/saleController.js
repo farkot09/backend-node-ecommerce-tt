@@ -1,7 +1,7 @@
 "use strict";
 
 const  {Sale}  = require("../models");
-const  {Customer}  = require("../models");
+const  {User}  = require("../models");
 const  {Product}  = require("../models");
 const {sendMasiveMail} = require("./mailController");
 
@@ -11,7 +11,7 @@ const SaleController = {
     create: async (req, res) => {
       try {
         const { id_customer, total_sale, list_products  } = req.body;
-        const customerExists = await Customer.findOne({
+        const customerExists = await User.findOne({
           where: {
             id: id_customer,
           },
