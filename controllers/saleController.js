@@ -60,13 +60,24 @@ const SaleController = {
       }
     },
     getSaleByUser: async (req, res) => {
-      const {id} = req.params;
+      const { id } = req.params;
       try {
         const sales = await Sale.findAll({
-          where: {
-            id_customer: id,
-          },
-        })        
+          where: { id_customer: id },
+        });
+      
+        await Promise.all(
+          sales.map(async (sale) => {
+            // Modificamos cada sale.list_products
+            sale.list_products = await Promise.all(
+              sale.list_products.map(async (productItem) => {
+                const product = await Product.findByPk(productItem.id_product);
+                return { ...productItem, product };
+              })
+            );
+          })
+        );
+      
         return res.status(200).json({ sales });
       } catch (error) {
         return res.status(500).json({
@@ -74,6 +85,7 @@ const SaleController = {
           error,
         });
       }
+      
     },
   };
   
