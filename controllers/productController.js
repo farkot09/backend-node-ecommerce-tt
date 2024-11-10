@@ -109,6 +109,7 @@ const ProductController = {
       const cachedProducts = await redis.get("productos");
 
       if (cachedProducts) {
+        res.setHeader('X-Data-Source', 'redis');
         return res.status(200).json({ products: JSON.parse(cachedProducts) });
       }
 
