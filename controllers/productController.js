@@ -4,7 +4,7 @@ const { Product } = require("../models");
 const Redis = require('ioredis');
 require("dotenv").config();
 const redis = new Redis({
-  host: 'ec2-52-87-156-208.compute-1.amazonaws.com',  // Dirección del servidor Redis (localhost)
+  host: '52.87.156.208',  // Dirección del servidor Redis (localhost)
   port: 6379,         // Puerto por defecto de Redis
   password: '',  // Si Redis tiene contraseña, añádela aquí
   db: 0,              // Base de datos de Redis (por defecto es 0)
