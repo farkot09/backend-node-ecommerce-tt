@@ -1,15 +1,15 @@
+/* eslint-disable no-undef */
 "use strict";
 
 const { Product } = require("../models");
-const Redis = require('ioredis');
+const Redis = require("ioredis");
 require("dotenv").config();
 const redis = new Redis({
-  host: '52.87.156.208',  // Dirección del servidor Redis (localhost)
-  port: 6379,         // Puerto por defecto de Redis
-  password: '',  // Si Redis tiene contraseña, añádela aquí
-  db: 0,              // Base de datos de Redis (por defecto es 0)
+  host: process.env.HOST_REDIS || "localhost", // Dirección del servidor Redis (localhost)
+  port: process.env.PORT_REDIS || 6379, // Puerto por defecto de Redis
+  password: process.env.PASSWORD_REDIS || "", // Si Redis tiene contraseña, añádela aquí
+  db: process.env.DB_REDIS || 0, // Base de datos de Redis (por defecto es 0)
 });
-
 
 const ProductController = {
   create: async (req, res) => {
@@ -33,11 +33,9 @@ const ProductController = {
         status,
       });
 
-      // Obtén todos los productos de la base de datos
       const products = await Product.findAll();
 
-      // Guarda todos los productos en Redis
-      await redis.set("productos", JSON.stringify(products));
+      await redis.set("productos", JSON.stringify(products), "EX", 7200);
 
       return res.status(201).json({
         message: "Product Crated",
@@ -66,6 +64,11 @@ const ProductController = {
       productExists.quantity = quantity || productExists.quantity;
       productExists.status = status;
       await productExists.save();
+
+      const products = await Product.findAll();
+
+      await redis.set("productos", JSON.stringify(products), "EX", 7200);
+
       return res.status(200).json({
         message: "product Updated",
         productExists,
@@ -87,6 +90,10 @@ const ProductController = {
         });
       }
       await product.destroy();
+
+      const products = await Product.findAll();
+
+      await redis.set("productos", JSON.stringify(products), "EX", 7200);
       return res.status(200).json({
         message: "product Deleted",
       });
@@ -99,7 +106,16 @@ const ProductController = {
   },
   getAllProducts: async (req, res) => {
     try {
+      const cachedProducts = await redis.get("productos");
+
+      if (cachedProducts) {
+        return res.status(200).json({ products: JSON.parse(cachedProducts) });
+      }
+
       const products = await Product.findAll();
+
+      await redis.set("productos", JSON.stringify(products), "EX", 7200);
+
       return res.status(200).json({ products });
     } catch (error) {
       return res.status(500).json({
