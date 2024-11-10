@@ -1,4 +1,4 @@
-POST http://localhost:5002/api/products
+POST https://farkot.site:5000/api/products
 Content-Type: application/json
 
 {

@@ -1,15 +1,23 @@
 "use strict";
 
-const  {Product}  = require("../models");
+const { Product } = require("../models");
+const Redis = require('ioredis');
 require("dotenv").config();
+const redis = new Redis({
+  host: 'ec2-52-87-156-208.compute-1.amazonaws.com',  // Dirección del servidor Redis (localhost)
+  port: 6379,         // Puerto por defecto de Redis
+  password: '',  // Si Redis tiene contraseña, añádela aquí
+  db: 0,              // Base de datos de Redis (por defecto es 0)
+});
+
 
 const ProductController = {
   create: async (req, res) => {
     try {
-      const { name, price, image, quantity, status  } = req.body;
+      const { name, price, image, quantity, status } = req.body;
       const productExists = await Product.findOne({
         where: {
-            name,
+          name,
         },
       });
       if (productExists) {
@@ -24,6 +32,13 @@ const ProductController = {
         quantity,
         status,
       });
+
+      // Obtén todos los productos de la base de datos
+      const products = await Product.findAll();
+
+      // Guarda todos los productos en Redis
+      await redis.set("productos", JSON.stringify(products));
+
       return res.status(201).json({
         message: "Product Crated",
         productSaved,
@@ -38,7 +53,7 @@ const ProductController = {
   updateProduct: async (req, res) => {
     try {
       const { id } = req.params;
-      const { name, price, image, quantity, status=true } = req.body;           
+      const { name, price, image, quantity, status = true } = req.body;
       const productExists = await Product.findByPk(id);
       if (!productExists) {
         return res.status(404).json({
@@ -65,7 +80,7 @@ const ProductController = {
   deleteProduct: async (req, res) => {
     try {
       const { id } = req.params;
-      const product = await Product.findByPk(id);            
+      const product = await Product.findByPk(id);
       if (!product) {
         return res.status(404).json({
           message: "El producto no existe",
@@ -84,7 +99,7 @@ const ProductController = {
   },
   getAllProducts: async (req, res) => {
     try {
-      const products = await Product.findAll()        
+      const products = await Product.findAll();
       return res.status(200).json({ products });
     } catch (error) {
       return res.status(500).json({
