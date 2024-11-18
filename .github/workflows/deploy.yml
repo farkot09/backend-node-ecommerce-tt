@@ -37,6 +37,6 @@ jobs:
           git reset --hard
           git pull origin main
           npm install
-          pm2 restart all || npm run start
+          sudo pm2 restart all || npm run start
         EOF
         rm deploy_key.pem
