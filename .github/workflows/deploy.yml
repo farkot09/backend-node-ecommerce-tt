@@ -23,13 +23,20 @@ jobs:
         HOST: ${{ secrets.EC2_HOST }}
         USER: ${{ secrets.EC2_USER }}
         PEM_KEY: ${{ secrets.EC2_PEM_KEY }}
+        REPO_URL: https://github.com/tu-usuario/tu-repo.git
+        PROJECT_DIR: /home/ubuntu/backend-node-ecommerce-tt
       run: |
-        echo "$PEM_KEY" > deploy_key.pem
+        echo "$PEM_KEY" | tr -d '\r' > deploy_key.pem
         chmod 600 deploy_key.pem
         ssh -i deploy_key.pem -o StrictHostKeyChecking=no $USER@$HOST << EOF
-          cd /home/ubuntu/backend-node-ecommerce-tt
+          if [ ! -d "$PROJECT_DIR" ]; then
+            mkdir -p $PROJECT_DIR
+            git clone $REPO_URL $PROJECT_DIR
+          fi
+          cd $PROJECT_DIR
+          git reset --hard
           git pull origin main
           npm install
-          pm2 restart all
+          pm2 restart all || npm run start
         EOF
         rm deploy_key.pem
