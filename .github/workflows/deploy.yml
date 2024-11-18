@@ -31,6 +31,7 @@ jobs:
         EMAIL_USER: ${{ secrets.EMAIL_USER }}  
         EMAIL_PASSWORD: ${{ secrets.EMAIL_PASSWORD }}  
         JWT_EXPIRE_IN: ${{ secrets.JWT_EXPIRE_IN }}  
+        JSON_SECRETO: ${{ secrets.JSON_SECRETO }}  
         PORT_REDIS: ${{ secrets.PORT_REDIS }}  
         HOST_REDIS: ${{ secrets.HOST_REDIS }}  
         DB_REDIS: ${{ secrets.DB_REDIS }}  
@@ -62,6 +63,7 @@ jobs:
           echo "HOST_REDIS=$HOST_REDIS" >> .env
           echo "DB_REDIS=$DB_REDIS" >> .env
           echo "PASSWORD_REDIS=$PASSWORD_REDIS" >> .env
+          echo "JSON_SECRETO=$JSON_SECRETO" >> .env
 
           sudo pm2 restart all || npm run start
         EOF
