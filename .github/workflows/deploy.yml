@@ -51,6 +51,11 @@ jobs:
           git pull origin main
           npm install
 
+          if [ -f .env ]; then
+            echo "Eliminando archivo .env existente"
+            sudo rm -f .env
+          fi
+
           echo "DB_PORT=$DB_PORT" >> .env
           echo "DB_HOST=$DB_HOST" >> .env
           echo "DB_PASSWORD=$DB_PASSWORD" >> .env
