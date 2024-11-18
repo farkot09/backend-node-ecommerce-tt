@@ -38,7 +38,7 @@ const httpsServer = https.createServer(sslOptions, app);
 
 // Iniciar el servidor
 httpsServer.listen(PORT, () => {
-    console.log(`Servidor HTTPS en puerto ${PORT}`);
+    console.log(`Servidor HTTPS en puerto - ${PORT}`);
 });
 
 // Redirigir el tráfico HTTP a HTTPS
