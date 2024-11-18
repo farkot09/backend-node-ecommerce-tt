@@ -23,6 +23,18 @@ jobs:
         HOST: ${{ secrets.EC2_HOST }}
         USER: ${{ secrets.EC2_USER }}
         PEM_KEY: ${{ secrets.EC2_PEM_KEY }}
+        DB_PORT: ${{ secrets.DB_PORT }}  
+        DB_HOST: ${{ secrets.EC2_HOST }}  
+        DB_PASSWORD: ${{ secrets.DB_PASSWORD }} 
+        DB_NAME: ${{ secrets.DB_NAME }}  
+        PORT: ${{ secrets.PORT }}  
+        EMAIL_USER: ${{ secrets.EMAIL_USER }}  
+        EMAIL_PASSWORD: ${{ secrets.EMAIL_PASSWORD }}  
+        JWT_EXPIRE_IN: ${{ secrets.JWT_EXPIRE_IN }}  
+        PORT_REDIS: ${{ secrets.PORT_REDIS }}  
+        HOST_REDIS: ${{ secrets.HOST_REDIS }}  
+        DB_REDIS: ${{ secrets.DB_REDIS }}  
+        PASSWORD_REDIS: ${{ secrets.PASSWORD_REDIS }}  
         REPO_URL: https://github.com/farkot09/backend-node-ecommerce-tt
         PROJECT_DIR: /home/ubuntu/backend-node-ecommerce-tt
       run: |
