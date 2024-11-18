@@ -5,10 +5,10 @@ const { Product } = require("../models");
 const Redis = require("ioredis");
 require("dotenv").config();
 const redis = new Redis({
-  host: process.env.HOST_REDIS || "localhost", // Dirección del servidor Redis (localhost)
-  port: process.env.PORT_REDIS || 6379, // Puerto por defecto de Redis
-  password: process.env.PASSWORD_REDIS || "", // Si Redis tiene contraseña, añádela aquí
-  db: process.env.DB_REDIS || 0, // Base de datos de Redis (por defecto es 0)
+  host: process.env.HOST_REDIS || "localhost",
+  port: process.env.PORT_REDIS || 6379,
+  password: process.env.PASSWORD_REDIS || "",
+  db: process.env.DB_REDIS || 0,
 });
 
 const ProductController = {

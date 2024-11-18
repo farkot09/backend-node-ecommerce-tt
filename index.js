@@ -30,7 +30,7 @@ app.use("/api", RoutesUser);
 const sslOptions = {
     key: fs.readFileSync('/etc/letsencrypt/live/farkot.site-0001/privkey.pem'),
     cert: fs.readFileSync('/etc/letsencrypt/live/farkot.site-0001/fullchain.pem')
-};
+ };
 
 // Crear el servidor HTTPS
 const PORT = process.env.PORT || 5000;
