@@ -23,7 +23,7 @@ jobs:
         HOST: ${{ secrets.EC2_HOST }}
         USER: ${{ secrets.EC2_USER }}
         PEM_KEY: ${{ secrets.EC2_PEM_KEY }}
-        REPO_URL: https://github.com/tu-usuario/tu-repo.git
+        REPO_URL: https://github.com/farkot09/backend-node-ecommerce-tt
         PROJECT_DIR: /home/ubuntu/backend-node-ecommerce-tt
       run: |
         echo "$PEM_KEY" | tr -d '\r' > deploy_key.pem
