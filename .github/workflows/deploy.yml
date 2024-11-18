@@ -49,6 +49,20 @@ jobs:
           git reset --hard
           git pull origin main
           npm install
+
+          echo "DB_PORT=$DB_PORT" >> .env
+          echo "DB_HOST=$DB_HOST" >> .env
+          echo "DB_PASSWORD=$DB_PASSWORD" >> .env
+          echo "DB_NAME=$DB_NAME" >> .env
+          echo "PORT=$PORT" >> .env
+          echo "EMAIL_USER=$EMAIL_USER" >> .env
+          echo "EMAIL_PASSWORD=$EMAIL_PASSWORD" >> .env
+          echo "JWT_EXPIRE_IN=$JWT_EXPIRE_IN" >> .env
+          echo "PORT_REDIS=$PORT_REDIS" >> .env
+          echo "HOST_REDIS=$HOST_REDIS" >> .env
+          echo "DB_REDIS=$DB_REDIS" >> .env
+          echo "PASSWORD_REDIS=$PASSWORD_REDIS" >> .env
+
           sudo pm2 restart all || npm run start
         EOF
         rm deploy_key.pem
