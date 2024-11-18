@@ -1,0 +1,35 @@
+name: Deploy to EC2
+
+on:
+  push:
+    branches:
+      - main # Cambia a tu rama principal si es diferente
+
+jobs:
+  deploy:
+    runs-on: ubuntu-latest
+
+    steps:
+    - name: Checkout Code
+      uses: actions/checkout@v3
+
+    - name: Setup Node.js
+      uses: actions/setup-node@v3
+      with:
+        node-version: '16'
+
+    - name: Deploy to EC2
+      env:
+        HOST: ${{ secrets.EC2_HOST }}
+        USER: ${{ secrets.EC2_USER }}
+        PEM_KEY: ${{ secrets.EC2_PEM_KEY }}
+      run: |
+        echo "$PEM_KEY" > deploy_key.pem
+        chmod 600 deploy_key.pem
+        ssh -i deploy_key.pem -o StrictHostKeyChecking=no $USER@$HOST << EOF
+          cd /backend-node-ecommerce-tt
+          git pull origin main
+          npm install
+          pm2 restart all
+        EOF
+        rm deploy_key.pem

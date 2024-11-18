@@ -1,15 +1,23 @@
+/* eslint-disable no-undef */
 "use strict";
 
-const  {Product}  = require("../models");
+const { Product } = require("../models");
+const Redis = require("ioredis");
 require("dotenv").config();
+const redis = new Redis({
+  host: process.env.HOST_REDIS || "localhost",
+  port: process.env.PORT_REDIS || 6379,
+  password: process.env.PASSWORD_REDIS || "",
+  db: process.env.DB_REDIS || 0,
+});
 
 const ProductController = {
   create: async (req, res) => {
     try {
-      const { name, price, image, quantity, status  } = req.body;
+      const { name, price, image, quantity, status } = req.body;
       const productExists = await Product.findOne({
         where: {
-            name,
+          name,
         },
       });
       if (productExists) {
@@ -24,6 +32,11 @@ const ProductController = {
         quantity,
         status,
       });
+
+      const products = await Product.findAll();
+
+      await redis.set("productos", JSON.stringify(products), "EX", 7200);
+
       return res.status(201).json({
         message: "Product Crated",
         productSaved,
@@ -38,7 +51,7 @@ const ProductController = {
   updateProduct: async (req, res) => {
     try {
       const { id } = req.params;
-      const { name, price, image, quantity, status=true } = req.body;           
+      const { name, price, image, quantity, status = true } = req.body;
       const productExists = await Product.findByPk(id);
       if (!productExists) {
         return res.status(404).json({
@@ -51,6 +64,11 @@ const ProductController = {
       productExists.quantity = quantity || productExists.quantity;
       productExists.status = status;
       await productExists.save();
+
+      const products = await Product.findAll();
+
+      await redis.set("productos", JSON.stringify(products), "EX", 7200);
+
       return res.status(200).json({
         message: "product Updated",
         productExists,
@@ -65,13 +83,17 @@ const ProductController = {
   deleteProduct: async (req, res) => {
     try {
       const { id } = req.params;
-      const product = await Product.findByPk(id);            
+      const product = await Product.findByPk(id);
       if (!product) {
         return res.status(404).json({
           message: "El producto no existe",
         });
       }
       await product.destroy();
+
+      const products = await Product.findAll();
+
+      await redis.set("productos", JSON.stringify(products), "EX", 7200);
       return res.status(200).json({
         message: "product Deleted",
       });
@@ -84,7 +106,17 @@ const ProductController = {
   },
   getAllProducts: async (req, res) => {
     try {
-      const products = await Product.findAll()        
+      const cachedProducts = await redis.get("productos");
+
+      if (cachedProducts) {
+        res.setHeader('X-Data-Source', 'redis');
+        return res.status(200).json({ products: JSON.parse(cachedProducts) });
+      }
+
+      const products = await Product.findAll();
+
+      await redis.set("productos", JSON.stringify(products), "EX", 7200);
+
       return res.status(200).json({ products });
     } catch (error) {
       return res.status(500).json({
