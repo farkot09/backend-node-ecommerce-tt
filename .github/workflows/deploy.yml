@@ -31,11 +31,11 @@ jobs:
         EMAIL_USER: ${{ secrets.EMAIL_USER }}  
         EMAIL_PASSWORD: ${{ secrets.EMAIL_PASSWORD }}  
         JWT_EXPIRE_IN: ${{ secrets.JWT_EXPIRE_IN }}  
-        JSON_SECRETO: ${{ secrets.JSON_SECRETO }}  
+        JWT_SECRET: ${{ secrets.JWT_SECRET }}  
         PORT_REDIS: ${{ secrets.PORT_REDIS }}  
         HOST_REDIS: ${{ secrets.HOST_REDIS }}  
         DB_REDIS: ${{ secrets.DB_REDIS }}  
-        PASSWORD_REDIS: ${{ secrets.PASSWORD_REDIS }}  
+        PASSWORD_REDIS: '' 
         REPO_URL: https://github.com/farkot09/backend-node-ecommerce-tt
         PROJECT_DIR: /home/ubuntu/backend-node-ecommerce-tt
       run: |
@@ -68,7 +68,7 @@ jobs:
           echo "HOST_REDIS=$HOST_REDIS" >> .env
           echo "DB_REDIS=$DB_REDIS" >> .env
           echo "PASSWORD_REDIS=$PASSWORD_REDIS" >> .env
-          echo "JWT_SECRET=$JSON_SECRETO" >> .env
+          echo "JWT_SECRET=$JWT_SECRET" >> .env
 
           sudo pm2 restart all || npm run start
         EOF
